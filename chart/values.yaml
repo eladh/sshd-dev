@@ -2,7 +2,7 @@
 
 replicaCount: 1
 
-gcpSecretName: gcp-secret
+gcpSecretName: secret
 
 image:
   repository: eladhr/sshd-server
