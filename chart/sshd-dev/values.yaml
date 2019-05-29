@@ -2,8 +2,6 @@
 
 replicaCount: 1
 
-gcpSecretName: secret
-
 image:
   repository: eladhr/swampupworkshop-dev
   tag: v15
