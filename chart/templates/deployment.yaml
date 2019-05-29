@@ -19,10 +19,12 @@ spec:
         app: {{ include "sshd.name" . }}
         release: {{ .Release.Name }}
     spec:
-      {{- with .Values.volumes }}
+      {{- if $.Values.gcpSecretName }}
       volumes:
-{{ toYaml . | indent 6 }}
-      {{- end}}
+            - name: gcp-secret
+              secret:
+                secretName: {{ .Values.gcpSecretName }}
+      {{- end }}
 {{- if .Values.dnsPolicy }}
       dnsPolicy: {{ .Values.dnsPolicy }}
       dnsConfig:
@@ -41,7 +43,10 @@ spec:
           securityContext:
 {{ toYaml .Values.securityContext | indent 12 }}
           volumeMounts:
-{{ toYaml .Values.volumeMounts | indent 12 }}
+         {{- if .Values.gcpSecretName }}
+                - name: gcp-secret
+                  mountPath: "/license.json"
+        {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}

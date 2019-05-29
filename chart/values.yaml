@@ -2,6 +2,8 @@
 
 replicaCount: 1
 
+gcpSecretName: gcp-secret
+
 image:
   repository: eladhr/sshd-server
   tag: v13

@@ -16,16 +16,13 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     python \
     git
 
-
+#Install gcloud sdk
 RUN curl -sSL https://sdk.cloud.google.com | bash
-
 ENV PATH $PATH:/root/google-cloud-sdk/bin
-
 RUN gcloud components update && gcloud components install beta --quiet
-
 RUN ln -sf /root/google-cloud-sdk/bin/gcloud /usr/bin/gcloud
 
-
+#Install Helm + kubectl
 RUN apk add --update ca-certificates \
  && apk add --update -t deps curl  \
  && apk add --update gettext tar gzip \
@@ -52,10 +49,9 @@ ADD ./docker-entrypoint.sh /usr/local/bin
 
 # add first install
 ADD ./setup.sh .
+RUN chmod +x /setup.sh
 
-#make sure we get fresh keys
-#RUN rm -rf /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_dsa_key
-
+#expose SSH Service
 EXPOSE 22
 
 ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
