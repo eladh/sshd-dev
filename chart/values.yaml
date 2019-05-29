@@ -5,8 +5,8 @@ replicaCount: 1
 gcpSecretName: secret
 
 image:
-  repository: eladhr/sshd-server
-  tag: v13
+  repository: eladhr/swampupworkshop-dev
+  tag: v15
   pullPolicy: IfNotPresent
 
 nameOverride: ""
