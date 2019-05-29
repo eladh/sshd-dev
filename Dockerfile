@@ -47,10 +47,6 @@ WORKDIR /
 # add entrypoint script
 ADD ./docker-entrypoint.sh /usr/local/bin
 
-# add first install
-ADD ./setup.sh .
-RUN chmod +x /setup.sh
-
 #expose SSH Service
 EXPOSE 22
 
